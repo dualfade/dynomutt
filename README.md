@@ -1,5 +1,6 @@
 # dynomutt
 Websocket Injection Middleware
 
-![image](https://github.com/dualfade/dynomutt/assets/2522757/fac5aec9-a928-4718-8496-12c4a9c91974)
+![image](https://github.com/dualfade/dynomutt/assets/2522757/c017f4aa-dce0-4bff-9e69-ce77f726b0b1)
+
 
