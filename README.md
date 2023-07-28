@@ -17,6 +17,7 @@
 ## Installation
 
 ```console
+in development please disregard:
 pip install dynomutt
 ```
 
@@ -78,6 +79,16 @@ ffuf -X GET -u 'http://127.0.0.1:8082/pages/FUZZ' -w /tmp/0.txt -mc all -fc 500
   - WebSocket Headers and Authorization schemes.
   - WebSocket Proxy token?= support.
   - More to come.
+
+## To Do
+
+- All initial testing has been done against OWASP dvws.
+  - All 8 initial tests working.
+- Needs testing against functinal entity with Authorization Tokens and Secure Socket Layer.
+- Needs testing against modern wss:// ?token=
+- Auto update index route.
+- Finish Burp raw integration.
+- Probabaly a metric shit ton more, and as we go they say..
 
 ## License
 
