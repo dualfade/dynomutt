@@ -1,5 +1,7 @@
 # dynomutt
 
+#### WebSocket Injection Middleware
+
 ![image](https://github.com/dualfade/dynomutt/assets/2522757/c017f4aa-dce0-4bff-9e69-ce77f726b0b1)
 
 [![PyPI - Version](https://img.shields.io/pypi/v/dynomutt.svg)](https://pypi.org/project/dynomutt)
