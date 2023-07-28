@@ -55,11 +55,10 @@ if __name__ == "__main__":
             do_examples.examples()
 
         if args.raw:
-            if args.verbose:
-                logging_handler.info("=> Verbose mode enabled !")
-
             do_burp = do_burp.BurpParser(args.raw, args.verbose)
-            do_burp.parse()
+            parsed = do_burp.burp_raw_parse()
+            print(parsed)
+            sys.exit(0)
 
         # middleware handler --
         handler = middleware_handler.MiddlewareServer(args.url, args.headers, args.ignore_ssl, args.timeout)

@@ -9,14 +9,15 @@ from modules import logging_handler
 class BurpParser:
     """class BurpParser"""
 
-    def __init__(self, filename):
+    def __init__(self, filename, verbose):
         """init options import and parse; return to main"""
 
         self.filename = filename
+        self.verbose = verbose
 
-    def parse(self):
+    def burp_raw_parse(self):
         """parse burp raw file input, by index; pull required
-        values to re establish a new authenticated session to the target system --"""
+        values to re establish a new authenticated session to the target websocket --"""
 
         try:
             with open(self.filename, 'r') as f:
@@ -26,38 +27,33 @@ class BurpParser:
             for index, value in enumerate(enum, start=0):
                 burp_values.append(value)
 
-            # ret --
+            burp_values = list(filter(None, burp_values))
             return burp_values
 
-        except IOError as err:
+            # if burp_values:
+            #     logging_handler.info("=> BurpParser: parsing burp raw file input !")
+            #     host = burp_values[1].split()
+            #     user_agent = burp_values[2].split()
+            #     sec_webSocket_version = burp_values[6].split()
+            #     origin = burp_values[7].split()
+            #     sec_websocket_protocol = burp_values[8].split()
+            #     web_socket_key = burp_values[9].split()
+            #     cookie = burp_values[11].split()
+            #     upgrade = burp_values[18].split()
+
+            #     if self.verbose:
+            #         logging_handler.info("=> BurpParser: verbose mode enabled !")
+            #         logging_handler.info(host)
+            #         logging_handler.info(user_agent)
+            #         logging_handler.info(sec_webSocket_version)
+            #         logging_handler.info(origin)
+            #         logging_handler.info(sec_websocket_protocol)
+            #         logging_handler.info(web_socket_key)
+            #         logging_handler.info(cookie)
+            #         logging_handler.info(upgrade)
+
+        except FileNotFoundError as err:
             logging_handler.error(err)
 
-    def get_vals(self):
-        """get burp header value --"""
-
-        # get required headers --
-        # if burp_vals:
-        #     host = burp_vals[1].split()
-        #     user_agent = burp_vals[2].split()
-        #     sec_webSocket_version = burp_vals[6].split()
-        #     origin = burp_vals[7].split()
-        #     sec_websocket_protocol = burp_vals[8].split()
-        #     web_socket_key = burp_vals[9].split()
-        #     cookie = burp_vals[11].split()
-        #     upgrade = burp_vals[18].split()
-
-        #     # verbose by default --
-        #     if (options.verbose == True):
-        #         logging.info(host)
-        #         logging.info(user_agent)
-        #         logging.info(sec_webSocket_version)
-        #         logging.info(origin)
-        #         logging.info(sec_websocket_protocol)
-        #         logging.info(web_socket_key)
-        #         logging.info(cookie)
-        #         logging.info(upgrade)
-        #     else:
-        #         pass
-
-        # else:
-        #     logging.info('[info] user defined args')
+        except IndexError as err:
+            logging_handler.error(err)
