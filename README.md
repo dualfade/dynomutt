@@ -62,6 +62,9 @@ python dynomutt.py -h
 => Sqlmap Example with Listener
 python sqlmap.py -u 'http://127.0.0.1:8082/param?' --data='{"auth_user":"*","auth_pass":"YWRtaW4="}' --tamper base64encode --dbms mysql --risk 3 --level 5 --method POST
 
+=> Ffuf using custom command injection wordlist
+ffuf -X GET -u 'http://127.0.0.1:8082/pages/FUZZ' -w /tmp/0.txt -mc all -fc 500
+
 ```
 
 ## Notes
