@@ -23,26 +23,26 @@ pip install dynomutt
 ## Usage
 
 ```usage
-dynomutt[main] % python src/dynomutt/dynomutt.py -h
-Usage: dynomutt.py [options]
+usage: dynomutt.py [-h] [-l LHOST] [-p LPORT] [-d] [-v] [-u URL] [-k] [-t TIMEOUT] [-H HEADERS] [-r RAW] [-E]
 
-Options:
+dynomutt
+
+options:
   -h, --help            show this help message and exit
-  -l LHOST, --lhost=LHOST
+  -l LHOST, --lhost LHOST
                         Listen Host
-  -p LPORT, --lport=LPORT
+  -p LPORT, --lport LPORT
                         Listen Port
-  -d, --debug           Enable Debug
-  -u URL, --url=URL     Target WebSocket Url
+  -d, --debug           Enable WebSocket Debug
+  -v, --verbose         Enable Verbose Mode
+  -u URL, --url URL     Target WebSocket Url
   -k, --ignore-ssl      Ignore SSL
-  -t TIMEOUT, --timeout=TIMEOUT
+  -t TIMEOUT, --timeout TIMEOUT
                         WebSocket Open Timeout in seconds
-  -H HEADERS, --headers=HEADERS
+  -H HEADERS, --headers HEADERS
                         Header `Name: Value, Name: Value`, separated by comma.
-  -r RAW, --raw=RAW     Burp Request File
+  -r RAW, --raw RAW     Burp Request File
   -E, --examples        Examples Menu
-
-dynomutt[main] %
 ```
 
 ## Notes
