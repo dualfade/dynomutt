@@ -66,7 +66,7 @@ python sqlmap.py -u 'http://127.0.0.1:8082/param?' --data='{"auth_user":"*","aut
 => Ffuf using custom command file-inclusion wordlist
 ffuf -X GET -u 'http://127.0.0.1:8082/pages/FUZZ' -w /tmp/0.txt -mc all -fc 500
 
- Ffuf special char encoded injection, command injection test
+=> Ffuf special char encoded injection, command injection test
 pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.0.1:8082/param?data=127.0.0.1FUZZcat%20/etc/hosts' -w - -mc all -fc 404 -t 3
 
 ```
