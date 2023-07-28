@@ -19,7 +19,7 @@ def examples():
 
     print('\n=> HTTP Verb CRUD Operations:')
     print('[listener] http://127.0.0.1:8082/param?inj=1&inj=2')
-    print('[listener] http://127.0.0.1:8082//<path:path>')
+    print('[listener] http://127.0.0.1:8082/<path:path>')
 
     print("\n=> Sqlmap Example with Listener")
     print(
