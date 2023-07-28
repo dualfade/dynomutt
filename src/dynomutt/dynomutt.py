@@ -32,7 +32,7 @@ if __name__ == "__main__":
     parser.add_option("-d", "--debug", action="store_false", dest="debug", help="Enable Debug")
 
     # websocket opts --
-    parser.add_option("-u", "--url", dest="url", help="Target Url")
+    parser.add_option("-u", "--url", dest="url", help="Target WebSocket Url")
     parser.add_option("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL")
     parser.add_option("-t", "--timeout", dest="timeout", type="int", help="WebSocket Open Timeout in seconds")
     parser.add_option(
