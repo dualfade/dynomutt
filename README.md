@@ -47,7 +47,11 @@ dynomutt[main] %
 
 ## Notes
 
-This is a new project in development. Please do not use yet.
+- This is a new project in development, Please do not use yet.
+- Dynomutt uses asyncio websockets.
+- Dynomutt uses bottle as middleware routing and a asyncronous gevent listener.
+- Two dedicated injection endpoints, one dynamic and one paramterized.
+- More to come.
 
 ## License
 
