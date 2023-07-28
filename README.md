@@ -33,7 +33,7 @@ Options:
   -p LPORT, --lport=LPORT
                         Listen Port
   -d, --debug           Enable Debug
-  -u URL, --url=URL     Target Url
+  -u URL, --url=URL     Target WebSocket Url
   -k, --ignore-ssl      Ignore SSL
   -t TIMEOUT, --timeout=TIMEOUT
                         WebSocket Open Timeout in seconds
