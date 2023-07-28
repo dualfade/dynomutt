@@ -15,7 +15,7 @@
 # | rlwrap websocat 'ws://dvws.local:8080/authenticate-user-blind' --async-stdio 2>/dev/null  | html2text
 
 import sys
-from optparse import OptionParser
+import argparse
 
 from modules import middleware_handler
 from modules import logging_handler
@@ -24,18 +24,21 @@ from helpers import do_examples
 
 # main --
 if __name__ == "__main__":
-    parser = OptionParser()
+    parser = argparse.ArgumentParser(description="dynomutt")
 
     # bottle opts --
-    parser.add_option("-l", "--lhost", dest="lhost", help="Listen Host")
-    parser.add_option("-p", "--lport", dest="lport", help="Listen Port")
-    parser.add_option("-d", "--debug", action="store_false", dest="debug", help="Enable Debug")
+    parser.add_argument("-l", "--lhost", dest="lhost", help="Listen Host")
+    parser.add_argument("-p", "--lport", dest="lport", help="Listen Port")
+    parser.add_argument("-d", "--debug", action="store_false", dest="debug", help="Enable WebSocket Debug")
+    parser.add_argument(
+        "-v", "--verbose", action="store_false", dest="verbose", default=False, help="Enable Verbose Mode"
+    )
 
     # websocket opts --
-    parser.add_option("-u", "--url", dest="url", help="Target WebSocket Url")
-    parser.add_option("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL")
-    parser.add_option("-t", "--timeout", dest="timeout", type="int", help="WebSocket Open Timeout in seconds")
-    parser.add_option(
+    parser.add_argument("-u", "--url", dest="url", help="Target WebSocket Url")
+    parser.add_argument("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL")
+    parser.add_argument("-t", "--timeout", dest="timeout", type=int, help="WebSocket Open Timeout in seconds")
+    parser.add_argument(
         "-H",
         "--headers",
         dest="headers",
@@ -43,25 +46,23 @@ if __name__ == "__main__":
     )
 
     # burp; usage --
-    parser.add_option("-r", "--raw", dest="raw", help="Burp Request File")
-    parser.add_option("-E", "--examples", action="store_true", dest="examples", help="Examples Menu")
+    parser.add_argument("-r", "--raw", dest="raw", help="Burp Request File")
+    parser.add_argument("-E", "--examples", action="store_true", dest="examples", help="Examples Menu")
 
     try:
-        (options, args) = parser.parse_args()
+        args = parser.parse_args()
         logging_handler.info("=> Starting ws_injproxy.py")
 
-        if options.examples:
+        if args.examples:
             do_examples.examples()
 
-        if options.raw:
-            do_burp = do_burp.BurpParser(options.raw)
-            raw = do_burp.parse()
-            print(raw)
-            sys.exit()
+        if args.raw:
+            do_burp = do_burp.BurpParser(args.raw, args.verbose)
+            do_burp.parse()
 
         # middleware handler --
-        handler = middleware_handler.MiddlewareServer(options.url, options.headers, options.ignore_ssl, options.timeout)
-        handler.run(options.lhost, options.lport, options.debug)
+        handler = middleware_handler.MiddlewareServer(args.url, args.headers, args.ignore_ssl, args.timeout)
+        handler.run(args.lhost, args.lport, args.debug)
 
     except KeyboardInterrupt:
         logging_handler.error("=> Keyboard interrupt")
