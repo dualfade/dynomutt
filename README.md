@@ -58,7 +58,7 @@ python dynomutt.py -h
 
 => HTTP Verb CRUD Operations:
 [listener] http://127.0.0.1:8082/param?inj=1&inj=2
-[listener] http://127.0.0.1:8082//<path:path>
+[listener] http://127.0.0.1:8082/<path:path>
 
 => Sqlmap Example with Listener
 python sqlmap.py -u 'http://127.0.0.1:8082/param?' --data='{"auth_user":"*","auth_pass":"YWRtaW4="}' --tamper base64encode --dbms mysql --risk 3 --level 5 --method POST
