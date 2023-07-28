@@ -51,6 +51,7 @@ dynomutt[main] %
 - Dynomutt uses asyncio websockets.
 - Dynomutt uses bottle as middleware routing and a asyncronous gevent listener.
 - Two dedicated injection endpoints, one dynamic and one paramterized.
+- All HTTP verbs supported, main focus is WebSocket CRUD injection.
 - More to come.
 
 ## License
