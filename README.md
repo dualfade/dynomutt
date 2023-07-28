@@ -20,6 +20,8 @@
 pip install dynomutt
 ```
 
+## Usage
+
 ```usage
 dynomutt[main] % python src/dynomutt/dynomutt.py -h
 Usage: dynomutt.py [options]
