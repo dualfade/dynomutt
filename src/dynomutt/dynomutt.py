@@ -30,13 +30,11 @@ if __name__ == "__main__":
     parser.add_argument("-l", "--lhost", dest="lhost", help="Listen Host")
     parser.add_argument("-p", "--lport", dest="lport", help="Listen Port")
     parser.add_argument("-d", "--debug", action="store_false", dest="debug", help="Enable WebSocket Debug")
-    parser.add_argument(
-        "-v", "--verbose", action="store_false", dest="verbose", default=False, help="Enable Verbose Mode"
-    )
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable Verbose Mode")
 
     # websocket opts --
     parser.add_argument("-u", "--url", dest="url", help="Target WebSocket Url")
-    parser.add_argument("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL")
+    parser.add_argument("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL Warnings")
     parser.add_argument("-t", "--timeout", dest="timeout", type=int, help="WebSocket Open Timeout in seconds")
     parser.add_argument(
         "-H",
@@ -57,6 +55,9 @@ if __name__ == "__main__":
             do_examples.examples()
 
         if args.raw:
+            if args.verbose:
+                logging_handler.info("=> Verbose mode enabled !")
+
             do_burp = do_burp.BurpParser(args.raw, args.verbose)
             do_burp.parse()
 
