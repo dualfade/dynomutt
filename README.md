@@ -47,14 +47,15 @@ dynomutt[main] %
 
 ## Notes
 
-- This is a new project in development, Please do not use yet.
-- Dynomutt uses asyncio websockets.
-- Dynomutt uses bottle as middleware routing and a asyncronous gevent listener.
-- Two dedicated injection endpoints, one dynamic and one parameterized.
-- All HTTP verbs supported, main focus is WebSocket CRUD injection.
-- WebSocket Headers and Authorization schemes.
-- WebSocket Proxy token?= support.
-- More to come.
+- ** This is a new project in development, Please do not use yet. **
+- A few highlights:
+  - Dynomutt uses asyncio websockets.
+  - Dynomutt uses bottle as middleware routing and a asyncronous gevent listener.
+  - Two dedicated injection endpoints, one dynamic and one parameterized.
+  - All HTTP verbs supported, main focus is WebSocket CRUD injection.
+  - WebSocket Headers and Authorization schemes.
+  - WebSocket Proxy token?= support.
+  - More to come.
 
 ## License
 
