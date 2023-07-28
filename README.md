@@ -45,6 +45,25 @@ options:
   -E, --examples        Examples Menu
 ```
 
+## Examples
+
+```examples
+python dynomutt.py -h
+
+=> Dynomutt Examples:
+[usage] python dynomutt.py -l '127.0.0.1' -p '8082' -u 'ws://dvws.local:8080/reflected-xss'
+[usage] python dynomutt.py -l '127.0.0.1' -p '8082' -u 'ws://dvws.local:8080/authenticate-user-blind' -d -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30
+[usage] python dynomutt.py -l '127.0.0.1' -p '8002' -u 'wss://dvws.local:8080/file-inclusion' -d -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c, User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -k -t 30
+
+=> HTTP Verb CRUD Operations:
+[listener] http://127.0.0.1:8082/param?inj=1&inj=2
+[listener] http://127.0.0.1:8082//<path:path>
+
+=> Sqlmap Example with Listener
+python sqlmap.py -u 'http://127.0.0.1:8082/param?' --data='{"auth_user":"*","auth_pass":"YWRtaW4="}' --tamper base64encode --dbms mysql --risk 3 --level 5 --method POST
+
+```
+
 ## Notes
 
 - **This is a new project in development, Please do not use yet.**

@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     try:
         args = parser.parse_args()
-        logging_handler.info("=> Starting ws_injproxy.py")
+        logging_handler.info("=> Starting dynomutt.py")
 
         if args.examples:
             do_examples.examples()
