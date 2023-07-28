@@ -36,7 +36,7 @@ options:
   -d, --debug           Enable WebSocket Debug
   -v, --verbose         Enable Verbose Mode
   -u URL, --url URL     Target WebSocket Url
-  -k, --ignore-ssl      Ignore SSL
+  -k, --ignore-ssl      Ignore SSL Warnings
   -t TIMEOUT, --timeout TIMEOUT
                         WebSocket Open Timeout in seconds
   -H HEADERS, --headers HEADERS
