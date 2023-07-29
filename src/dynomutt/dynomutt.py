@@ -8,8 +8,9 @@
 
 # NOTE: testing --
 # https://github.com/interference-security/DVWS/ --
-# https://zero-s4n.hashnode.dev/fuzzing-websocket-messages-on-burpsuite --
 # https://github.com/rayhan0x01/nodejs-websocket-sqli --
+# https://github.com/Serhatcck/vulnsocket --
+# https://www.piesocket.com/websocket-tester --
 
 # NOTE: manually --
 # echo -ne '{"auth_user":"YWRtaW4=","auth_pass":"YWRtaW4="}' \
