@@ -11,11 +11,11 @@
 
 **Table of Contents**
 
-- [Installation](#https://github.com/dualfade/dynomutt#installation)
-- [Usage](#https://github.com/dualfade/dynomutt#usage)
-- [Examples](#Examples)
-- [Notes](#Notes)
-- [To Do](#ToDo)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Notes](#notes)
+- [To Do](#todo)
 - [License](#license)
 
 ## Installation
