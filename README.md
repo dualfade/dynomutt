@@ -12,6 +12,9 @@
 **Table of Contents**
 
 - [Installation](#installation)
+- [Examples](#Examples)
+- [Notes](#Notes)
+- [To Do](#ToDo)
 - [License](#license)
 
 ## Installation
@@ -72,7 +75,7 @@ pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.
 
 ## Notes
 
-- **This project in development, Please use at own discretion.**
+- **This project in development, please use at own discretion.**
 - A few highlights:
   - Dynomutt uses asyncio websockets.
   - Dynomutt uses bottle as middleware routing and an asyncronous gevent listener.
@@ -82,7 +85,7 @@ pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.
   - WebSocket Proxy token?= support.
   - More to come.
 
-## To Do
+## ToDo
 
 - All initial testing has been done against OWASP dvws.
 - Needs testing against functinal entity with Authorization Tokens and Secure Socket Layer.
