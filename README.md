@@ -1,6 +1,6 @@
 # dynomutt
 
-#### WebSocket Injection Middleware
+#### Asyncronous WebSocket Injection Middleware
 
 ![image](https://github.com/dualfade/dynomutt/assets/2522757/c017f4aa-dce0-4bff-9e69-ce77f726b0b1)
 
@@ -78,13 +78,18 @@ pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.
 
 - **This project in development, please use at own discretion.**
 - A few highlights:
+
   - Dynomutt uses asyncio websockets.
   - Dynomutt uses bottle as middleware routing and an asyncronous gevent listener.
   - Two dedicated injection endpoints, one dynamic and one parameterized.
   - All HTTP verbs supported, main focus is WebSocket CRUD injection.
   - WebSocket Headers and Authorization schemes.
   - WebSocket Proxy token?= support.
-  - More to come.
+  - More ?
+
+- Up front; I am not a developer.
+- There is no time to fool around with lots of semi working tools on a live engagement, which is how this
+  project came to be.
 
 ## ToDo
 
