@@ -11,8 +11,8 @@
 
 **Table of Contents**
 
-- [Installation](#installation)
-- [Usage](#Usage)
+- [Installation](#https://github.com/dualfade/dynomutt#installation)
+- [Usage](#https://github.com/dualfade/dynomutt#usage)
 - [Examples](#Examples)
 - [Notes](#Notes)
 - [To Do](#ToDo)
