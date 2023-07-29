@@ -17,8 +17,7 @@
 ## Installation
 
 ```console
-in development please disregard:
-pip install dynomutt
+in development:
 ```
 
 ## Usage
@@ -73,7 +72,7 @@ pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.
 
 ## Notes
 
-- **This is a new project in development, Please do not use yet.**
+- **This project in development, Please use at own discretion.**
 - A few highlights:
   - Dynomutt uses asyncio websockets.
   - Dynomutt uses bottle as middleware routing and an asyncronous gevent listener.
