@@ -12,6 +12,7 @@
 **Table of Contents**
 
 - [Installation](#installation)
+- [Usage](#Usage)
 - [Examples](#Examples)
 - [Notes](#Notes)
 - [To Do](#ToDo)
