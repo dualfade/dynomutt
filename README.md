@@ -42,7 +42,7 @@ options:
   -u URL, --url URL     Target WebSocket Url
   -k, --ignore-ssl      Ignore SSL Warnings
   -t TIMEOUT, --timeout TIMEOUT
-                        WebSocket Open Timeout in seconds
+                        WebSocket Timeout in seconds
   -H HEADERS, --headers HEADERS
                         Header `Name: Value, Name: Value`, separated by comma.
   -r RAW, --raw RAW     Burp Request File
