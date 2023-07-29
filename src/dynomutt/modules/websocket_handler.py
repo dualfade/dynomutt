@@ -46,31 +46,52 @@ class WebsocketSendPayload(object):
         # ret; headers_dict --
         custom_headers = headers_dict
 
-        # WARN: will need testing --
-        # ssl ? self.ignore_ssl --
-        if re.findall(r'^wss://', self.url):
-            if self.ignore_ssl:
-                logging_handler.info("=> Using wss:// protocol !")
-                logging_handler.warn("=> Ignoring SSL certificate verification !")
-                ssl_context = ssl.SSLContext()
-                ssl_context.verify_mode = ssl.CERT_NONE
-
-        if re.findall(r'^ws://', self.url):
-            logging_handler.info("=> Using ws:// protocol !")
-
+        # ws open timeout --
         if self.timeout:
             logging_handler.info(f"=> Using timeout: {self.timeout} seconds !")
 
-        # NOTE: client.connect --
-        async with connect(self.url, extra_headers=custom_headers, open_timeout=self.timeout, ssl=None) as websocket:
-            try:
-                await websocket.send(self.payload)
-                await asyncio.sleep(0)
-                print(f">>> {self.payload}")
+        # WARN: will needs more testing --
+        # testing; https://www.piesocket.com/websocket-tester --
+        # encrypted websocket --
 
-                resp = await websocket.recv()
-                print(f"<<< {resp}")
+        if re.findall(r'^wss://', self.url):
+            if self.ignore_ssl:
+                logging_handler.warn("=> Using wss:// websocket scheme !")
+                logging_handler.warn("=> Ignoring SSL certificate verification !")
 
-            except ConnectionError as err:
-                print(f"ConnectionError: {err}")
-                pass
+            # set ssl_context --
+            ssl_context = ssl.SSLContext()
+            ssl_context.verify_mode = ssl.CERT_NONE
+
+            async with connect(
+                self.url, extra_headers=custom_headers, open_timeout=self.timeout, ssl=ssl_context
+            ) as websocket:
+                try:
+                    await websocket.send(self.payload)
+                    await asyncio.sleep(0)
+                    print(f">>> {self.payload}")
+
+                    resp = await websocket.recv()
+                    print(f"<<< {resp}")
+
+                except ConnectionError as err:
+                    print(f"ConnectionError: {err}")
+                    pass
+
+        # unencrypted websocket --
+        if re.findall(r'^ws://', self.url):
+            logging_handler.warn("=> Using ws:// websocket scheme !")
+            async with connect(
+                self.url, extra_headers=custom_headers, open_timeout=self.timeout, ssl=None
+            ) as websocket:
+                try:
+                    await websocket.send(self.payload)
+                    await asyncio.sleep(0)
+                    print(f">>> {self.payload}")
+
+                    resp = await websocket.recv()
+                    print(f"<<< {resp}")
+
+                except ConnectionError as err:
+                    print(f"ConnectionError: {err}")
+                    pass

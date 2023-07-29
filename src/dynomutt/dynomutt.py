@@ -8,6 +8,7 @@
 
 # NOTE: testing --
 # https://github.com/interference-security/DVWS/ --
+# https://zero-s4n.hashnode.dev/fuzzing-websocket-messages-on-burpsuite --
 # https://github.com/rayhan0x01/nodejs-websocket-sqli --
 
 # NOTE: manually --

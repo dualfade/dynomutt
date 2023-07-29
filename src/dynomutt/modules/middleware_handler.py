@@ -48,6 +48,7 @@ class MiddlewareServer:
     @route('/<path:path>')
     def dynamic_handler(self, path):
         """handle dynamic requests"""
+
         try:
             ws = websocket_handler.WebsocketSendPayload(
                 self.url, self.headers, self.ignore_ssl, self.timeout, str(path)
@@ -129,6 +130,10 @@ class MiddlewareServer:
 
             if debug == 0:
                 logging_handler.info("=> Debug enabled")
+
+            # endpoints --
+            logging_handler.info(f"=> http://{lhost}:{lport}/<path:path>")
+            logging_handler.info(f"=> http://{lhost}:{lport}/param?<key>=<value>")
 
             # gevent; run --
             run(self.app, host=lhost, port=lport, debug=debug, server='gevent')
