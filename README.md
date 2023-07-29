@@ -72,6 +72,9 @@ ffuf -X GET -u 'http://127.0.0.1:8082/pages/FUZZ' -w /tmp/0.txt -mc all -fc 500
 => Ffuf special char encoded injection, command injection test
 pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.0.1:8082/param?data=127.0.0.1FUZZcat%20/etc/hosts' -w - -mc all -fc 404 -t 3
 
+=> Dalfox reflected xss
+dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=sp9a9c746au3osa8maj53km312'
+
 ```
 
 ## Notes
@@ -99,6 +102,7 @@ pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.
 - Add JSON payload parser.
 - Auto update index route.
 - Finish Burp raw integration.
+- Fix XSS injection, as this sorta works.
 - Probabaly a metric shit ton more, and as we go they say..
 
 ## License
