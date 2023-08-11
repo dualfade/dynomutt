@@ -30,11 +30,13 @@ class BurpParser:
 
             burp_values = list(filter(None, burp_values))
 
-            # WARN: parse raw input, add as required to list; wip, needs testing --
+            # WARN: wip, needs testing --
+            # parse raw input, add as required to list --
             if burp_values:
                 logging_handler.info("=> BurpParser: parsing burp raw file input !")
 
-                # http verb --
+                # http verbs --
+                # https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods --
                 REQUEST = []
                 METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT"]
                 for index, value in enumerate(METHODS, start=0):
@@ -82,10 +84,8 @@ class BurpParser:
                     logging_handler.info(verb)
                     logging_handler.info(host)
                     logging_handler.info(user_agent)
-                    # logging_handler.info(sec_webSocket_version)
-                    # logging_handler.info(origin)
-                    # logging_handler.info(sec_websocket_protocol)
-                    # logging_handler.info(web_socket_key)
+                    logging_handler.info(accept)
+                    logging_handler.info(accept_encoding)
                     logging_handler.info(cookie)
                     logging_handler.info(upgrade_request)
 
