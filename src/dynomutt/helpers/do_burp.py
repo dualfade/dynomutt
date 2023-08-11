@@ -17,7 +17,7 @@ class BurpParser:
         self.verbose = verbose
 
     def burp_raw_parse(self):
-        """parse burp raw file input, by index; pull required
+        """parse raw file input, by index; scrub and pull required
         values to re establish a new authenticated session to the target websocket --"""
 
         try:
@@ -36,6 +36,7 @@ class BurpParser:
                 logging_handler.info("=> BurpParser: parsing burp raw file input !")
 
                 # http verbs --
+                # get base request verb, host, user-agent, cookie --
                 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods --
                 REQUEST = []
                 METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT"]
@@ -43,7 +44,7 @@ class BurpParser:
                     r = re.compile(value)
                     verb = list(filter(r.match, burp_values))
                     if verb is not None:
-                        REQUEST.append(verb)
+                        REQUEST.append(scrub(verb))
                         break
 
                 # ret verb  --
@@ -51,43 +52,25 @@ class BurpParser:
 
                 # host --
                 r = re.compile('Host')
-                host = list(filter(r.match, burp_values))
+                host = scrub(list(filter(r.match, burp_values)))
                 REQUEST.append(host)
 
                 # user-agent --
                 r = re.compile('User-Agent')
-                user_agent = list(filter(r.match, burp_values))
+                user_agent = scrub(list(filter(r.match, burp_values)))
                 REQUEST.append(user_agent)
-
-                # accept --
-                r = re.compile('Accept')
-                accept = list(filter(r.match, burp_values))
-                REQUEST.append(accept)
-
-                # accept-encoding --
-                r = re.compile('Accept-Encoding')
-                accept_encoding = list(filter(r.match, burp_values))
-                REQUEST.append(accept_encoding)
 
                 # cookie --
                 r = re.compile('Cookie')
-                cookie = list(filter(r.match, burp_values))
+                cookie = scrub(list(filter(r.match, burp_values)))
                 REQUEST.append(cookie)
-
-                # upgrade --
-                r = re.compile('Upgrade-Insecure-Requests')
-                upgrade_request = list(filter(r.match, burp_values))
-                REQUEST.append(upgrade_request)
 
                 if self.verbose:
                     logging_handler.info("=> BurpParser: verbose mode enabled !")
                     logging_handler.info(verb)
                     logging_handler.info(host)
                     logging_handler.info(user_agent)
-                    logging_handler.info(accept)
-                    logging_handler.info(accept_encoding)
                     logging_handler.info(cookie)
-                    logging_handler.info(upgrade_request)
 
         except FileNotFoundError as err:
             logging_handler.error(err)
@@ -95,5 +78,13 @@ class BurpParser:
         except IndexError as err:
             logging_handler.error(err)
 
-    def burp_sanitized(self):
-        """sanitize burp raw file input; remove all '§' template markers"""
+
+def scrub(val):
+    """scrub burp raw file input; remove all '§' template markers"""
+
+    template = '§'
+
+    for index, value in enumerate(val, start=0):
+        if re.findall(template, value):
+            scrubbed = value.replace(template, '')
+            return scrubbed
