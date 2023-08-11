@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # websocket opts --
     parser.add_argument("-u", "--url", dest="url", help="Target WebSocket Url")
     parser.add_argument("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL Warnings")
-    parser.add_argument("-t", "--timeout", dest="timeout", type=int, help="WebSocket Open Timeout in seconds")
+    parser.add_argument("-t", "--timeout", dest="timeout", type=int, help="WebSocket Timeout in seconds")
     parser.add_argument(
         "-H",
         "--headers",
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         if args.raw:
             do_burp = do_burp.BurpParser(args.raw, args.verbose)
             parsed = do_burp.burp_raw_parse()
-            print(parsed)
+            # print(parsed)
             sys.exit(0)
 
         # middleware handler --

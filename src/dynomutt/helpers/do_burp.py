@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # do_burp.py
 
+import re
 import sys
 
 from modules import logging_handler
@@ -28,32 +29,71 @@ class BurpParser:
                 burp_values.append(value)
 
             burp_values = list(filter(None, burp_values))
-            return burp_values
 
-            # if burp_values:
-            #     logging_handler.info("=> BurpParser: parsing burp raw file input !")
-            #     host = burp_values[1].split()
-            #     user_agent = burp_values[2].split()
-            #     sec_webSocket_version = burp_values[6].split()
-            #     origin = burp_values[7].split()
-            #     sec_websocket_protocol = burp_values[8].split()
-            #     web_socket_key = burp_values[9].split()
-            #     cookie = burp_values[11].split()
-            #     upgrade = burp_values[18].split()
+            # WARN: parse raw input, add as required to list; wip, needs testing --
+            if burp_values:
+                logging_handler.info("=> BurpParser: parsing burp raw file input !")
 
-            #     if self.verbose:
-            #         logging_handler.info("=> BurpParser: verbose mode enabled !")
-            #         logging_handler.info(host)
-            #         logging_handler.info(user_agent)
-            #         logging_handler.info(sec_webSocket_version)
-            #         logging_handler.info(origin)
-            #         logging_handler.info(sec_websocket_protocol)
-            #         logging_handler.info(web_socket_key)
-            #         logging_handler.info(cookie)
-            #         logging_handler.info(upgrade)
+                # http verb --
+                REQUEST = []
+                METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT"]
+                for index, value in enumerate(METHODS, start=0):
+                    r = re.compile(value)
+                    verb = list(filter(r.match, burp_values))
+                    if verb is not None:
+                        REQUEST.append(verb)
+                        break
+
+                # ret verb  --
+                verb = REQUEST[0]
+
+                # host --
+                r = re.compile('Host')
+                host = list(filter(r.match, burp_values))
+                REQUEST.append(host)
+
+                # user-agent --
+                r = re.compile('User-Agent')
+                user_agent = list(filter(r.match, burp_values))
+                REQUEST.append(user_agent)
+
+                # accept --
+                r = re.compile('Accept')
+                accept = list(filter(r.match, burp_values))
+                REQUEST.append(accept)
+
+                # accept-encoding --
+                r = re.compile('Accept-Encoding')
+                accept_encoding = list(filter(r.match, burp_values))
+                REQUEST.append(accept_encoding)
+
+                # cookie --
+                r = re.compile('Cookie')
+                cookie = list(filter(r.match, burp_values))
+                REQUEST.append(cookie)
+
+                # upgrade --
+                r = re.compile('Upgrade-Insecure-Requests')
+                upgrade_request = list(filter(r.match, burp_values))
+                REQUEST.append(upgrade_request)
+
+                if self.verbose:
+                    logging_handler.info("=> BurpParser: verbose mode enabled !")
+                    logging_handler.info(verb)
+                    logging_handler.info(host)
+                    logging_handler.info(user_agent)
+                    # logging_handler.info(sec_webSocket_version)
+                    # logging_handler.info(origin)
+                    # logging_handler.info(sec_websocket_protocol)
+                    # logging_handler.info(web_socket_key)
+                    logging_handler.info(cookie)
+                    logging_handler.info(upgrade_request)
 
         except FileNotFoundError as err:
             logging_handler.error(err)
 
         except IndexError as err:
             logging_handler.error(err)
+
+    def burp_sanitized(self):
+        """sanitize burp raw file input; remove all '§' template markers"""
