@@ -42,9 +42,9 @@ class BurpParser:
                 METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT"]
                 for index, value in enumerate(METHODS, start=0):
                     r = re.compile(value)
-                    verb = list(filter(r.match, burp_values))
+                    verb = scrub(list(filter(r.match, burp_values)))
                     if verb is not None:
-                        REQUEST.append(scrub(verb))
+                        REQUEST.append(verb)
                         break
 
                 # ret verb  --
@@ -55,7 +55,6 @@ class BurpParser:
                 host = scrub(list(filter(r.match, burp_values)))
                 REQUEST.append(host)
 
-                # user-agent --
                 r = re.compile('User-Agent')
                 user_agent = scrub(list(filter(r.match, burp_values)))
                 REQUEST.append(user_agent)
@@ -82,9 +81,17 @@ class BurpParser:
 def scrub(val):
     """scrub burp raw file input; remove all '§' template markers"""
 
+    s = []
     template = '§'
 
+    # loop scrub --
     for index, value in enumerate(val, start=0):
         if re.findall(template, value):
             scrubbed = value.replace(template, '')
-            return scrubbed
+            if scrubbed:
+                s.append(scrubbed)
+
+            # ret list --
+            return s
+        else:
+            return val

@@ -64,7 +64,10 @@ class WebsocketSendPayload(object):
             ssl_context.verify_mode = ssl.CERT_NONE
 
             async with connect(
-                self.url, extra_headers=custom_headers, open_timeout=self.timeout, ssl=ssl_context
+                self.url,
+                extra_headers=custom_headers,
+                close_timeout=self.timeout,
+                ssl=ssl_context,
             ) as websocket:
                 try:
                     await websocket.send(self.payload)
@@ -82,7 +85,10 @@ class WebsocketSendPayload(object):
         if re.findall(r'^ws://', self.url):
             logging_handler.warn("=> Using ws:// websocket scheme !")
             async with connect(
-                self.url, extra_headers=custom_headers, open_timeout=self.timeout, ssl=None
+                self.url,
+                extra_headers=custom_headers,
+                close_timeout=self.timeout,
+                ssl=None,
             ) as websocket:
                 try:
                     await websocket.send(self.payload)

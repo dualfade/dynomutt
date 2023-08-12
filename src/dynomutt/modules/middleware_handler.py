@@ -79,8 +79,7 @@ class MiddlewareServer:
         # POST --
         elif request.method == 'POST':
             if request.forms:
-                # WARN: forms placeholder -- --
-                logging_handler.warn("=> POST FORMS placeholder")
+                """forms placeholder"""
             if request.json:
                 post_data = str(request.json)
 
