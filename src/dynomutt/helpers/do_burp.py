@@ -20,6 +20,8 @@ class BurpParser:
         """parse raw file input, by index; scrub and pull required
         values to re establish a new authenticated session to the target websocket --"""
 
+        """ parse out base http(s) request values from burp raw file input;"""
+
         try:
             with open(self.filename, 'r') as f:
                 enum = f.read().splitlines()
@@ -33,11 +35,9 @@ class BurpParser:
             # WARN: wip, needs testing --
             # parse raw input, add as required to list --
             if burp_values:
-                logging_handler.info("=> BurpParser: parsing burp raw file input !")
+                logging_handler.warn("=> BurpParser: parsing burp raw input !")
 
                 # http verbs --
-                # get base request verb, host, user-agent, cookie --
-                # https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods --
                 REQUEST = []
                 METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT"]
                 for index, value in enumerate(METHODS, start=0):
@@ -65,7 +65,7 @@ class BurpParser:
                 REQUEST.append(cookie)
 
                 if self.verbose:
-                    logging_handler.info("=> BurpParser: verbose mode enabled !")
+                    logging_handler.warn("=> BurpParser: verbose mode enabled !")
                     logging_handler.info(verb)
                     logging_handler.info(host)
                     logging_handler.info(user_agent)
@@ -89,7 +89,7 @@ def scrub(val):
         if re.findall(template, value):
             scrubbed = value.replace(template, '')
             if scrubbed:
-                s.append(scrubbed)
+                s.append(str(scrubbed))
 
             # ret list --
             return s
