@@ -108,7 +108,10 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=
 
 ## Screenshots
 ```
+Server --
 python dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://localhost:8156/ws' -d -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30
+
+Sqlmap --
 python sqlmap.py -u 'http://127.0.0.1:8000/param?' --data '{"employeeID":"*"}' --dbms mysql --risk 3 --level 5
 ```
 ![2023-08-12_21-23_1](https://github.com/dualfade/dynomutt/assets/2522757/1469d46e-6959-4867-a7e8-af35319c1883)
