@@ -71,6 +71,9 @@ class BurpParser:
                     logging_handler.info(user_agent)
                     logging_handler.info(cookie)
 
+                # ret base --
+                return REQUEST
+
         except FileNotFoundError as err:
             logging_handler.error(err)
 

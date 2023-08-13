@@ -59,7 +59,9 @@ if __name__ == "__main__":
         if args.raw:
             do_burp = do_burp.BurpParser(args.raw, args.verbose)
             parsed = do_burp.burp_raw_parse()
-            # print(parsed)
+
+            # NOTE: send to req functions --
+            print(parsed)
             sys.exit(0)
 
         # middleware handler --
