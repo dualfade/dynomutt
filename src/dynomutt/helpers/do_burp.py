@@ -81,10 +81,11 @@ class BurpParser:
             logging_handler.error(err)
 
 
-def scrub(val):
+def scrub(*args):
     """scrub burp raw file input; remove all '§' template markers"""
 
     s = []
+    val = args[0]
     template = '§'
 
     # loop scrub --
