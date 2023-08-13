@@ -16,7 +16,7 @@
 - [Examples](#examples)
 - [Notes](#notes)
 - [To Do](#todo)
-- [Screenshots](#Screenshots)
+- [Screenshots](#screenshots)
 - [License](#license)
 
 ## Installation
@@ -107,6 +107,10 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=
 - Probabaly a metric shit ton more, and as we go they say..
 
 ## Screenshots
+```
+python src/dynomutt/dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://localhost:8156/ws' -d -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30
+python sqlmap.py -u 'http://127.0.0.1:8000/param?' --data '{"employeeID":"*"}' --dbms mysql --risk 3 --level 5 --dbs
+```
 ![2023-08-12_21-23_1](https://github.com/dualfade/dynomutt/assets/2522757/1469d46e-6959-4867-a7e8-af35319c1883)
 ![2023-08-12_21-23](https://github.com/dualfade/dynomutt/assets/2522757/0be4b41d-768d-4eb2-a057-1ec3411dcd5c)
 
