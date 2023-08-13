@@ -5,11 +5,11 @@ build-backend = "hatchling.build"
 [project]
 name = "dynomutt"
 dynamic = ["version"]
-description = ''
+description = 'Asyncronous Websocket Injection Middleware'
 readme = "README.md"
 requires-python = ">=3.7"
 license = "MIT"
-keywords = []
+keywords = ['middleware', 'websocket', 'python3']
 authors = [
   { name = "dualfade", email = "dualfade@vadersecurity.com" },
 ]
@@ -24,12 +24,19 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+  "asyncio",
+  "websockets>=11.0.3",
+  "gevent",
+  "gevent-websocket",
+  "bottle>=0.12.25",
+  "coloredlogs"
+]
 
 [project.urls]
-Documentation = "https://github.com/unknown/dynomutt#readme"
-Issues = "https://github.com/unknown/dynomutt/issues"
-Source = "https://github.com/unknown/dynomutt"
+Documentation = "https://github.com/dualfade/dynomutt#readme"
+Issues = "https://github.com/dualfade/dynomutt/issues"
+Source = "https://github.com/dualfade/dynomutt"
 
 [tool.hatch.version]
 path = "src/dynomutt/__about__.py"
