@@ -23,7 +23,8 @@ import argparse
 
 from modules import middleware_handler
 from modules import logging_handler
-from helpers import do_burp
+
+# from helpers import do_burp
 from helpers import do_examples
 
 # main --
@@ -50,10 +51,9 @@ if __name__ == "__main__":
     # FIXME: add matchers --
     # test with file_inclusion; root --
     parser.add_argument('--ms', dest='match_string', help='Match Response String')
-    # parser.add_argument('--mc', dest='match_code', help='Match HTTP Code')
 
+    # parser.add_argument("-r", "--raw", dest="raw", help="Burp Request File")
     parser.add_argument("-w", "--write", dest="write", help="Write Responses to File")
-    parser.add_argument("-r", "--raw", dest="raw", help="Burp Request File")
     parser.add_argument("-e", "--examples", action="store_true", dest="examples", help="Examples Menu")
 
     try:
@@ -63,17 +63,19 @@ if __name__ == "__main__":
         if args.examples:
             do_examples.examples()
 
-        if args.raw:
-            do_burp = do_burp.BurpParser(args.raw, args.verbose)
-            parsed = do_burp.burp_raw_parse()
+        # NOTE: send to req functions --
+        # may hold on this ??
+        # if args.raw:
+        #     do_burp = do_burp.BurpParser(args.raw, args.verbose)
+        #     parsed = do_burp.burp_raw_parse()
 
-            # NOTE: send to req functions --
-            # may hold on this ??
-            print(parsed)
-            sys.exit(0)
+        #     print(parsed)
+        # sys.exit(0)
 
         # middleware handler --
-        handler = middleware_handler.MiddlewareServer(args.url, args.headers, args.ignore_ssl, args.timeout)
+        handler = middleware_handler.MiddlewareServer(
+            args.url, args.headers, args.ignore_ssl, args.timeout, args.match_string
+        )
         handler.run(args.lhost, args.lport, args.debug)
 
     except KeyboardInterrupt:

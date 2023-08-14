@@ -20,13 +20,14 @@ from bottle import Bottle, route, request, response, run
 class MiddlewareServer:
     """MiddlewareServer class"""
 
-    def __init__(self, url, headers, ignore_ssl, timeout):
+    def __init__(self, url, headers, ignore_ssl, timeout, match_string):
         self.app = Bottle()
         self.app.install(self.middleware_RequestHandler)
         self.url = url
         self.headers = headers
         self.ignore_ssl = ignore_ssl
         self.timeout = timeout
+        self.match_string = match_string
 
     def middleware_RequestHandler(self, callback):
         """Middleware Requests function"""
@@ -75,7 +76,7 @@ class MiddlewareServer:
                 # NOTE: /param?data=<injection>
                 payload = request.query.data  # pyright: ignore
                 ws = websocket_handler.WebsocketSendPayload(
-                    self.url, self.headers, self.ignore_ssl, self.timeout, str(payload)
+                    self.url, self.headers, self.ignore_ssl, self.timeout, self.match_string, str(payload)
                 )
                 return asyncio.run(ws.sendPayload())
 
