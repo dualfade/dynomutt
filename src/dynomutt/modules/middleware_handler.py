@@ -33,7 +33,12 @@ class MiddlewareServer:
 
         def wrapper(*args, **kwargs):
             response.headers['X-Custom-Header'] = 'Middleware Server'
-            return callback(*args, **kwargs)
+            try:
+                return callback(*args, **kwargs)
+            except Exception as e:
+                logging_handler.warn('=> Warning: {}'.format(e))
+                logging_handler.warn('=> Warning: {}'.format(e.__class__.__name__))
+                logging_handler.warn('=> check your request params !')
 
         return wrapper
 
@@ -67,6 +72,7 @@ class MiddlewareServer:
         # GET --
         if request.method == 'GET':
             try:
+                # NOTE: /param?data=<injection>
                 payload = request.query.data  # pyright: ignore
                 ws = websocket_handler.WebsocketSendPayload(
                     self.url, self.headers, self.ignore_ssl, self.timeout, str(payload)
