@@ -4,6 +4,7 @@
 import re
 import ssl
 import asyncio
+from time import sleep
 from websockets.client import connect
 
 from . import logging_handler
@@ -12,13 +13,14 @@ from . import logging_handler
 class WebsocketSendPayload(object):
     """class WebsocketSendPayload"""
 
-    def __init__(self, url, headers, ignore_ssl, timeout, payload):
+    def __init__(self, url, headers, ignore_ssl, timeout, match_string, payload):
         """init vars, pass to websocket connect"""
 
         self.url = url
         self.headers = headers
         self.ignore_ssl = ignore_ssl
         self.timeout = timeout
+        self.match_string = match_string
         self.payload = payload
 
     async def sendPayload(self):
@@ -83,7 +85,7 @@ class WebsocketSendPayload(object):
 
         # unencrypted websocket --
         if re.findall(r'^ws://', self.url):
-            logging_handler.warn("=> Using ws:// websocket scheme !")
+            # logging_handler.warn("=> Using ws:// websocket scheme !")
             async with connect(
                 self.url,
                 extra_headers=custom_headers,
@@ -96,7 +98,16 @@ class WebsocketSendPayload(object):
                     print(f">>> {self.payload}")
 
                     resp = await websocket.recv()
-                    print(f"<<< {resp}")
+
+                    if self.match_string:
+                        m = re.search(self.match_string, resp)
+                        if m is not None:
+                            print(f"<<< {resp}")
+                            logging_handler.warn(f"=> Matched: {self.match_string} !")
+                            sleep(10)
+
+                    else:
+                        print(f"<<< {resp}")
 
                 except ConnectionError as err:
                     print(f"ConnectionError: {err}")
