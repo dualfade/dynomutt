@@ -26,12 +26,12 @@ from helpers import do_examples
 
 # main --
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="dynomutt")
+    parser = argparse.ArgumentParser(prog="dynomutt", description="Asynchronous Websocket Injection Middleware")
 
     # bottle opts --
     parser.add_argument("-l", "--lhost", dest="lhost", help="Listen Host")
     parser.add_argument("-p", "--lport", dest="lport", help="Listen Port")
-    parser.add_argument("-d", "--debug", action="store_false", dest="debug", help="Enable WebSocket Debug")
+    parser.add_argument("-d", "--debug", action="store_true", dest="debug", help="Enable WebSocket Debug")
     parser.add_argument("-v", "--verbose", action="store_true", help="Enable Verbose Mode")
 
     # websocket opts --
@@ -45,9 +45,14 @@ if __name__ == "__main__":
         help="Header `Name: Value, Name: Value`, separated by comma.",
     )
 
-    # burp; usage --
+    # FIXME: add matchers --
+    # test with file_inclusion; root --
+    parser.add_argument('--ms', dest='match_string', help='Match Response String')
+    # parser.add_argument('--mc', dest='match_code', help='Match HTTP Code')
+
+    parser.add_argument("-w", "--write", dest="write", help="Write Responses to File")
     parser.add_argument("-r", "--raw", dest="raw", help="Burp Request File")
-    parser.add_argument("-E", "--examples", action="store_true", dest="examples", help="Examples Menu")
+    parser.add_argument("-e", "--examples", action="store_true", dest="examples", help="Examples Menu")
 
     try:
         args = parser.parse_args()
@@ -61,6 +66,7 @@ if __name__ == "__main__":
             parsed = do_burp.burp_raw_parse()
 
             # NOTE: send to req functions --
+            # may hold on this ??
             print(parsed)
             sys.exit(0)
 
