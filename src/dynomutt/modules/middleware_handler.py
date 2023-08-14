@@ -127,12 +127,13 @@ class MiddlewareServer:
             self.app.route('/<path:path>', method='ANY')(self.dynamic_handler)  # pyright: ignore
             logging_handler.info("=> Starting MiddlewareServer")
 
-            if debug == 0:
-                logging_handler.info("=> Debug enabled")
+            # debug --
+            if debug == True:
+                logging_handler.warn("=> Debug enabled")
 
             # endpoints --
             logging_handler.info(f"=> http://{lhost}:{lport}/<path:path>")
-            logging_handler.info(f"=> http://{lhost}:{lport}/param?<key>=<value>")
+            logging_handler.info(f"=> http://{lhost}:{lport}/param?data=<injection>")
 
             # gevent; run --
             run(self.app, host=lhost, port=lport, debug=debug, server='gevent')
