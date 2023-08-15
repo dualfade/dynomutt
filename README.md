@@ -116,7 +116,7 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=
 ## Screenshots
 
 ```
-Server --
+Dynomutt Middleware Server --
 hatch run default:python src/dynomutt/dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://localhost:8156/ws' -d -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30
 
 Sqlmap --
