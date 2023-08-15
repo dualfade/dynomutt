@@ -88,6 +88,7 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=
 - **This project in development, please use at own discretion.**
 - A few highlights:
 
+  - it's fast
   - Dynomutt uses asyncio websockets.
   - Dynomutt uses bottle as middleware routing and an asyncronous gevent listener.
   - Two dedicated injection endpoints, one dynamic and one parameterized.
@@ -105,9 +106,9 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=
 - All initial testing has been done against OWASP dvws.
 - Needs testing against functinal entity with Authorization Tokens and Secure Socket Layer.
 - Needs testing against modern wss:// ?token=
-- Add JSON payload parser.
 - Auto update index route.
 - Finish Burp raw integration.
+  - may not do this ? Most tools support this already?
 - Fix XSS injection, as this sorta works.
 - Probabaly a metric shit ton more, and as we go they say..
 
