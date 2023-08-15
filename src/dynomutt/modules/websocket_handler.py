@@ -139,5 +139,3 @@ def match_response(*args, **kwargs):
     logging_handler.warn(f"=> Match String: {match_string} !")
     logging_handler.warn(f"=> Match Detected: {m} !")
     logging_handler.warn("=> Shutting Down Gracefully !")
-
-    return (match_string, m)
