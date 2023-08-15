@@ -93,6 +93,8 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?data=Dalfox' --cookie 'PHPSESSID=
   - All HTTP verbs supported, main focus is WebSocket CRUD injection.
   - WebSocket Headers and Authorization schemes.
   - WebSocket Proxy token?= support.
+  - All initial testing has been done against OWASP dvws.
+  - Additional testing (screenshots): [nodejs-websocket-sqli](https://github.com/rayhan0x01/nodejs-websocket-sqli)
   - More ?
 
 - Up front; I am not a developer.
@@ -101,16 +103,11 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?data=Dalfox' --cookie 'PHPSESSID=
 
 ## ToDo
 
-- All initial testing has been done against OWASP dvws.
-  - Additional testing (shown in screenshots):
-  - [nodejs-websocket-sqli](https://github.com/rayhan0x01/nodejs-websocket-sqli)
 - Needs testing against functinal entity with Authorization Tokens and Secure Socket Layer.
 - Needs testing against modern wss:// ?token=
 - Auto update index route.
-- Finish Burp raw integration.
-  - may not do this ? Most tools support this already?
+- Burp raw file integration ?
 - Fix XSS injection, as this sorta works.
-- Fix args ordering.
 - Probabaly a metric shit ton more, and as we go they say..
 
 ## Screenshots
