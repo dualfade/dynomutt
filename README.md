@@ -104,6 +104,7 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=
 ## ToDo
 
 - All initial testing has been done against OWASP dvws.
+  - Additional testing: https://github.com/rayhan0x01/nodejs-websocket-sqli
 - Needs testing against functinal entity with Authorization Tokens and Secure Socket Layer.
 - Needs testing against modern wss:// ?token=
 - Auto update index route.
