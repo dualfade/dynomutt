@@ -65,8 +65,8 @@ dynomutt.py -e
 [usage] python dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://dvws.local:8080/command-execution' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30 -v --ms 'TJE\w.*?$'
 
 => HTTP Verb CRUD Operations:
-[listener] http://127.0.0.1:8082/param?inj=1&inj=2
 [listener] http://127.0.0.1:8082/<path:path>
+[listener] http://127.0.0.1:8082/param?data=<injection>
 
 => Sqlmap Example with Listener
 python sqlmap.py -u 'http://127.0.0.1:8082/param?' --data='{"auth_user":"*","auth_pass":"YWRtaW4="}' --tamper base64encode --dbms mysql --risk 3 --level 5 --method POST
