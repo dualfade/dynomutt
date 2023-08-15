@@ -28,9 +28,10 @@ in development:
 ## Usage
 
 ```usage
-usage: dynomutt.py [-h] [-l LHOST] [-p LPORT] [-d] [-v] [-u URL] [-k] [-t TIMEOUT] [-H HEADERS] [-r RAW] [-E]
+dynomutt[main] % hatch run default:python src/dynomutt/dynomutt.py -h
+usage: dynomutt [-h] [-l LHOST] [-p LPORT] [-d] [-v] [-u URL] [-k] [-t TIMEOUT] [-H HEADERS] [--ms MATCH_STRING] [-w WRITE] [-e]
 
-dynomutt
+Asynchronous Websocket Injection Middleware
 
 options:
   -h, --help            show this help message and exit
@@ -38,7 +39,7 @@ options:
                         Listen Host
   -p LPORT, --lport LPORT
                         Listen Port
-  -d, --debug           Enable WebSocket Debug
+  -d, --debug           Enable Bottle Debug
   -v, --verbose         Enable Verbose Mode
   -u URL, --url URL     Target WebSocket Url
   -k, --ignore-ssl      Ignore SSL Warnings
@@ -46,19 +47,22 @@ options:
                         WebSocket Timeout in seconds
   -H HEADERS, --headers HEADERS
                         Header `Name: Value, Name: Value`, separated by comma.
-  -r RAW, --raw RAW     Burp Request File
-  -E, --examples        Examples Menu
+  --ms MATCH_STRING     Match Response String
+  -w WRITE, --write WRITE
+                        Write Responses to File
+  -e, --examples        Examples Menu
 ```
 
 ## Examples
 
 ```examples
-python dynomutt.py -h
+dynomutt.py -e
 
 => Dynomutt Examples:
 [usage] python dynomutt.py -l '127.0.0.1' -p '8082' -u 'ws://dvws.local:8080/reflected-xss'
 [usage] python dynomutt.py -l '127.0.0.1' -p '8082' -u 'ws://dvws.local:8080/authenticate-user-blind' -d -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30
 [usage] python dynomutt.py -l '127.0.0.1' -p '8002' -u 'wss://dvws.local:8080/file-inclusion' -d -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c, User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -k -t 30
+[usage] python dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://dvws.local:8080/command-execution' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30 -v --ms 'TJE\w.*?$'
 
 => HTTP Verb CRUD Operations:
 [listener] http://127.0.0.1:8082/param?inj=1&inj=2
@@ -72,6 +76,7 @@ ffuf -X GET -u 'http://127.0.0.1:8082/pages/FUZZ' -w /tmp/0.txt -mc all -fc 500
 
 => Ffuf special char encoded injection, command injection test
 pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.0.1:8082/param?data=127.0.0.1FUZZcat%20/etc/hosts' -w - -mc all -fc 404 -t 3
+ffuf -u 'http://127.0.0.1:8000/param?data=127.0.0.1FUZZ' -w ~/Github/custom_list/wordlists/SecLists/Fuzzing/command-injection-commix.txt -t 1 -rate 1
 
 => Dalfox reflected xss
 dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=sp9a9c746au3osa8maj53km312'
