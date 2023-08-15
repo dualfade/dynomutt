@@ -83,9 +83,7 @@ class WebsocketSendPayload(object):
                         m = re.search(self.match_string, resp)
                         if m is not None:
                             print(f"<<< {resp}")
-                            logging_handler.warn(f"=> Match String: {self.match_string} !")
-                            logging_handler.warn(f"=> Match Detected: {m} !")
-                            logging_handler.warn("=> Shutting Down Gracefully !")
+                            match_response(m, self.match_string)
 
                             sleep(5)
                             await websocket.close()
@@ -118,9 +116,7 @@ class WebsocketSendPayload(object):
                         m = re.search(self.match_string, resp)
                         if m is not None:
                             print(f"<<< {resp}")
-                            logging_handler.warn(f"=> Match String: {self.match_string} !")
-                            logging_handler.warn(f"=> Match Detected: {m} !")
-                            logging_handler.warn("=> Shutting Down Gracefully !")
+                            match_response(m, self.match_string)
 
                             sleep(5)
                             await websocket.close()
@@ -132,3 +128,16 @@ class WebsocketSendPayload(object):
                 except ConnectionError as err:
                     print(f"ConnectionError: {err}")
                     pass
+
+
+def match_response(*args, **kwargs):
+    """match_response standard output"""
+
+    m = args[0]
+    match_string = args[1]
+
+    logging_handler.warn(f"=> Match String: {match_string} !")
+    logging_handler.warn(f"=> Match Detected: {m} !")
+    logging_handler.warn("=> Shutting Down Gracefully !")
+
+    return (match_string, m)
