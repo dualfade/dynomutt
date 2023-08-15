@@ -88,7 +88,7 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=
 - **This project in development, please use at own discretion.**
 - A few highlights:
 
-  - it's fast
+  - It's fast.
   - Dynomutt uses asyncio websockets.
   - Dynomutt uses bottle as middleware routing and an asyncronous gevent listener.
   - Two dedicated injection endpoints, one dynamic and one parameterized.
