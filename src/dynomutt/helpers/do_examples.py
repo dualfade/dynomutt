@@ -33,7 +33,7 @@ pencode -input ${PWD}/specialchars.txt urlencode | ffuf -X GET -u 'http://127.0.
 ffuf -u 'http://127.0.0.1:8000/param?data=127.0.0.1FUZZ' -w ~/Github/custom_list/wordlists/SecLists/Fuzzing/command-injection-commix.txt -t 1 -rate 1
 
 => Dalfox reflected xss
-dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=sp9a9c746au3osa8maj53km312'
+dalfox -X GET url 'http://127.0.0.1:8000/param?data=Dalfox' --cookie 'PHPSESSID=sp9a9c746au3osa8maj53km312'
           """
     )
 
