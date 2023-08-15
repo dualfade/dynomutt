@@ -3,11 +3,15 @@
 
 import re
 import ssl
+import signal
 import asyncio
 from time import sleep
 from websockets.client import connect
 
 from . import logging_handler
+
+# signal flag --
+flag_exit = False
 
 
 class WebsocketSendPayload(object):
@@ -58,8 +62,8 @@ class WebsocketSendPayload(object):
 
         if re.findall(r'^wss://', self.url):
             if self.ignore_ssl:
-                logging_handler.warn("=> Using wss:// websocket scheme !")
-                logging_handler.warn("=> Ignoring SSL certificate verification !")
+                logging_handler.info("=> Using wss:// websocket scheme !")
+                logging_handler.info("=> Ignoring SSL certificate verification !")
 
             # set ssl_context --
             ssl_context = ssl.SSLContext()
@@ -86,7 +90,7 @@ class WebsocketSendPayload(object):
 
         # unencrypted websocket --
         if re.findall(r'^ws://', self.url):
-            # logging_handler.warn("=> Using ws:// websocket scheme !")
+            logging_handler.info("=> Using ws:// websocket scheme !")
             async with connect(
                 self.url,
                 extra_headers=custom_headers,
@@ -105,8 +109,10 @@ class WebsocketSendPayload(object):
                         if m is not None:
                             print(f"<<< {resp}")
                             logging_handler.warn(f"=> Match String: {self.match_string} !")
-                            logging_handler.warn(f"=> Matched: {m} !")
-                            sleep(10)
+                            logging_handler.warn(f"=> Match Detected: {m} !")
+                            logging_handler.warn("=> Ctrl+C to Exit !")
+                            signal.signal(signal.SIGINT, signal_handler)
+                            sleep(5)
 
                     else:
                         print(f"<<< {resp}")
@@ -114,3 +120,12 @@ class WebsocketSendPayload(object):
                 except ConnectionError as err:
                     print(f"ConnectionError: {err}")
                     pass
+
+
+def signal_handler(signum, frame):
+    """ctl c signal handler"""
+
+    if input("=> Ctrl+C detected ! Do you really want to exit? y/n > ").lower().startswith('y'):
+        global flag_exit
+        flag_exit = True
+        logging_handler.info("=> Wait for graceful exit")
