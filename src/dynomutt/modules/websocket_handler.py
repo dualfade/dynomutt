@@ -2,6 +2,7 @@
 # websocket_handler.py
 
 import re
+import sys
 import ssl
 import signal
 import asyncio
@@ -9,9 +10,6 @@ from time import sleep
 from websockets.client import connect
 
 from . import logging_handler
-
-# signal flag --
-flag_exit = False
 
 
 class WebsocketSendPayload(object):
@@ -110,9 +108,12 @@ class WebsocketSendPayload(object):
                             print(f"<<< {resp}")
                             logging_handler.warn(f"=> Match String: {self.match_string} !")
                             logging_handler.warn(f"=> Match Detected: {m} !")
-                            logging_handler.warn("=> Ctrl+C to Exit !")
-                            signal.signal(signal.SIGINT, signal_handler)
+                            logging_handler.warn("=> Gracefully exiting !")
+
                             sleep(5)
+                            logging_handler.warn("=> Exiting !")
+                            await websocket.close()
+                            sys.exit(-1)
 
                     else:
                         print(f"<<< {resp}")
@@ -120,12 +121,3 @@ class WebsocketSendPayload(object):
                 except ConnectionError as err:
                     print(f"ConnectionError: {err}")
                     pass
-
-
-def signal_handler(signum, frame):
-    """ctl c signal handler"""
-
-    if input("=> Ctrl+C detected ! Do you really want to exit? y/n > ").lower().startswith('y'):
-        global flag_exit
-        flag_exit = True
-        logging_handler.info("=> Wait for graceful exit")
