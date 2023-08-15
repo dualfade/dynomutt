@@ -110,6 +110,7 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?name=dalfox' --cookie 'PHPSESSID=
 - Finish Burp raw integration.
   - may not do this ? Most tools support this already?
 - Fix XSS injection, as this sorta works.
+- Fix args ordering.
 - Probabaly a metric shit ton more, and as we go they say..
 
 ## Screenshots
