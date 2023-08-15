@@ -76,6 +76,7 @@ class WebsocketSendPayload(object):
                     await asyncio.sleep(0)
                     print(f">>> {self.payload}")
 
+                    # NOTE: add matcher --
                     resp = await websocket.recv()
                     print(f"<<< {resp}")
 
@@ -103,7 +104,8 @@ class WebsocketSendPayload(object):
                         m = re.search(self.match_string, resp)
                         if m is not None:
                             print(f"<<< {resp}")
-                            logging_handler.warn(f"=> Matched: {self.match_string} !")
+                            logging_handler.warn(f"=> Match String: {self.match_string} !")
+                            logging_handler.warn(f"=> Matched: {m} !")
                             sleep(10)
 
                     else:
