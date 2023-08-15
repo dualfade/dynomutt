@@ -111,7 +111,6 @@ class WebsocketSendPayload(object):
                             logging_handler.warn("=> Gracefully exiting !")
 
                             sleep(5)
-                            logging_handler.warn("=> Exiting !")
                             await websocket.close()
                             sys.exit(-1)
 
