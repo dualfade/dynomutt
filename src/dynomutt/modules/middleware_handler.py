@@ -39,7 +39,6 @@ class MiddlewareServer:
             except Exception as e:
                 logging_handler.warn('=> Warning: {}'.format(e))
                 logging_handler.warn('=> Warning: {}'.format(e.__class__.__name__))
-                logging_handler.warn('=> check your request params !')
 
         return wrapper
 
@@ -57,7 +56,7 @@ class MiddlewareServer:
 
         try:
             ws = websocket_handler.WebsocketSendPayload(
-                self.url, self.headers, self.ignore_ssl, self.timeout, str(path)
+                self.url, self.headers, self.ignore_ssl, self.timeout, self.match_string, str(path)
             )
             return asyncio.run(ws.sendPayload())
 
@@ -94,7 +93,7 @@ class MiddlewareServer:
                     while post_data:
                         payload = re.sub("'", '"', post_data)
                         ws = websocket_handler.WebsocketSendPayload(
-                            self.url, self.headers, self.ignore_ssl, self.timeout, str(payload)
+                            self.url, self.headers, self.ignore_ssl, self.timeout, self.match_string, str(payload)
                         )
                         return asyncio.run(ws.sendPayload())
 
