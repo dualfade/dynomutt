@@ -4,7 +4,6 @@
 import re
 import sys
 import ssl
-import signal
 import asyncio
 from time import sleep
 from websockets.client import connect
@@ -78,9 +77,22 @@ class WebsocketSendPayload(object):
                     await asyncio.sleep(0)
                     print(f">>> {self.payload}")
 
-                    # NOTE: add matcher --
                     resp = await websocket.recv()
-                    print(f"<<< {resp}")
+
+                    if self.match_string:
+                        m = re.search(self.match_string, resp)
+                        if m is not None:
+                            print(f"<<< {resp}")
+                            logging_handler.warn(f"=> Match String: {self.match_string} !")
+                            logging_handler.warn(f"=> Match Detected: {m} !")
+                            logging_handler.warn("=> Shutting Down Gracefully !")
+
+                            sleep(5)
+                            await websocket.close()
+                            sys.exit(-1)
+
+                    else:
+                        print(f"<<< {resp}")
 
                 except ConnectionError as err:
                     print(f"ConnectionError: {err}")
@@ -108,7 +120,7 @@ class WebsocketSendPayload(object):
                             print(f"<<< {resp}")
                             logging_handler.warn(f"=> Match String: {self.match_string} !")
                             logging_handler.warn(f"=> Match Detected: {m} !")
-                            logging_handler.warn("=> Gracefully exiting !")
+                            logging_handler.warn("=> Shutting Down Gracefully !")
 
                             sleep(5)
                             await websocket.close()
