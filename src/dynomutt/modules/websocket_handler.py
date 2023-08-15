@@ -28,6 +28,9 @@ class WebsocketSendPayload(object):
         """sendPayload url, payload and parsed dict headers"""
         """ client asyncio enabled; https://tinyurl.com/z43vnuwx"""
 
+        """ check incoming request for ws/wss scheme and validate, if match_string is present
+        then match response and print to stdout; exit cleanly """
+
         # headers --
         headers_dict = {}
         if self.headers:
