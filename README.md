@@ -28,8 +28,8 @@ in development:
 ## Usage
 
 ```usage
-dynomutt[main] % hatch run default:python src/dynomutt/dynomutt.py -h
-usage: dynomutt [-h] [-l LHOST] [-p LPORT] [-d] [-v] [-u URL] [-k] [-t TIMEOUT] [-H HEADERS] [--ms MATCH_STRING] [-w WRITE] [-e]
+hatch run python src/dynomutt/dynomutt.py -h
+usage: dynomutt [-h] [-l LHOST] [-p LPORT] [-u URL] [-H HEADERS] [-d] [-v] [-k] [-t TIMEOUT] [--ms MATCH_STRING] [-e]
 
 Asynchronous Websocket Injection Middleware
 
@@ -39,17 +39,15 @@ options:
                         Listen Host
   -p LPORT, --lport LPORT
                         Listen Port
+  -u URL, --url URL     Target WebSocket Url
+  -H HEADERS, --headers HEADERS
+                        Header `Name: Value, Name: Value`, separated by comma.
   -d, --debug           Enable Bottle Debug
   -v, --verbose         Enable Verbose Mode
-  -u URL, --url URL     Target WebSocket Url
   -k, --ignore-ssl      Ignore SSL Warnings
   -t TIMEOUT, --timeout TIMEOUT
                         WebSocket Timeout in seconds
-  -H HEADERS, --headers HEADERS
-                        Header `Name: Value, Name: Value`, separated by comma.
   --ms MATCH_STRING     Match Response String
-  -w WRITE, --write WRITE
-                        Write Responses to File
   -e, --examples        Examples Menu
 ```
 
