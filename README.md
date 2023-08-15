@@ -129,3 +129,5 @@ python sqlmap.py -u 'http://127.0.0.1:8000/param?' --data '{"employeeID":"*"}' -
 ## License
 
 `dynomutt` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+
+[![Hatch project](https://img.shields.io/badge/%F0%9F%A5%9A-Hatch-4051b5.svg)](https://github.com/pypa/hatch)
