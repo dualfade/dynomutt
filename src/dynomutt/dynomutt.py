@@ -34,13 +34,7 @@ if __name__ == "__main__":
     # bottle opts --
     parser.add_argument("-l", "--lhost", dest="lhost", help="Listen Host")
     parser.add_argument("-p", "--lport", dest="lport", help="Listen Port")
-    parser.add_argument("-d", "--debug", action="store_true", dest="debug", help="Enable Bottle Debug")
-    parser.add_argument("-v", "--verbose", action="store_true", help="Enable Verbose Mode")
-
-    # websocket opts --
     parser.add_argument("-u", "--url", dest="url", help="Target WebSocket Url")
-    parser.add_argument("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL Warnings")
-    parser.add_argument("-t", "--timeout", dest="timeout", type=int, help="WebSocket Timeout in seconds")
     parser.add_argument(
         "-H",
         "--headers",
@@ -50,10 +44,14 @@ if __name__ == "__main__":
 
     # FIXME: add matchers --
     # test with file_inclusion; root --
+    parser.add_argument("-d", "--debug", action="store_true", dest="debug", help="Enable Bottle Debug")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable Verbose Mode")
+    parser.add_argument("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL Warnings")
+    parser.add_argument("-t", "--timeout", dest="timeout", type=int, help="WebSocket Timeout in seconds")
     parser.add_argument('--ms', dest='match_string', help='Match Response String')
 
     # parser.add_argument("-r", "--raw", dest="raw", help="Burp Request File")
-    parser.add_argument("-w", "--write", dest="write", help="Write Responses to File")
+    # parser.add_argument("-w", "--write", dest="write", help="Write Responses to File")
     parser.add_argument("-e", "--examples", action="store_true", dest="examples", help="Examples Menu")
 
     try:
