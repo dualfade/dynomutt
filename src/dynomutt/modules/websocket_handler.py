@@ -4,17 +4,20 @@
 import re
 import sys
 import ssl
+import time
+import signal
+import psutil
 import asyncio
-from time import sleep
 from websockets.client import connect
 
 from . import logging_handler
+from . import middleware_handler
 
 
 class WebsocketSendPayload(object):
     """class WebsocketSendPayload"""
 
-    def __init__(self, url, headers, ignore_ssl, timeout, match_string, payload):
+    def __init__(self, url, headers, ignore_ssl, timeout, match_string, terminate, payload):
         """init vars, pass to websocket connect"""
 
         self.url = url
@@ -22,6 +25,7 @@ class WebsocketSendPayload(object):
         self.ignore_ssl = ignore_ssl
         self.timeout = timeout
         self.match_string = match_string
+        self.terminate = terminate
         self.payload = payload
 
     async def sendPayload(self):
@@ -37,8 +41,6 @@ class WebsocketSendPayload(object):
             try:
                 header = self.headers.split(',')
 
-                # FIX: breaking; index err --
-                # WARN: huh ? magically working ?? --
                 print(header)
                 for i in header:
                     key = i.strip()
@@ -88,7 +90,8 @@ class WebsocketSendPayload(object):
                             print(f"<<< {resp}")
                             match_response(m, self.match_string)
 
-                            sleep(5)
+                            # FIX: needs signal; terminate update --
+                            time.sleep(5)
                             await websocket.close()
                             sys.exit(-1)
 
@@ -121,9 +124,12 @@ class WebsocketSendPayload(object):
                             print(f"<<< {resp}")
                             match_response(m, self.match_string)
 
-                            sleep(5)
-                            await websocket.close()
-                            sys.exit(-1)
+                            # HACK: https://github.com/bottlepy/bottle/issues/1229 --
+                            if self.terminate:
+                                current_process = psutil.Process()
+                                current_process.send_signal(signal.SIGTERM)
+                            else:
+                                pass
 
                     else:
                         print(f"<<< {resp}")
