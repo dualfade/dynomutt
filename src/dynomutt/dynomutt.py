@@ -49,6 +49,7 @@ if __name__ == "__main__":
     parser.add_argument("-k", "--ignore-ssl", action="store_true", dest="ignore_ssl", help="Ignore SSL Warnings")
     parser.add_argument("-t", "--timeout", dest="timeout", type=int, help="WebSocket Timeout in seconds")
     parser.add_argument('--ms', dest='match_string', help='Match Response String')
+    parser.add_argument('--te', dest='terminate', action="store_true", help='Terminate on Match')
 
     # parser.add_argument("-r", "--raw", dest="raw", help="Burp Request File")
     # parser.add_argument("-w", "--write", dest="write", help="Write Responses to File")
@@ -72,7 +73,7 @@ if __name__ == "__main__":
 
         # middleware handler --
         handler = middleware_handler.MiddlewareServer(
-            args.url, args.headers, args.ignore_ssl, args.timeout, args.match_string
+            args.url, args.headers, args.ignore_ssl, args.timeout, args.match_string, args.terminate
         )
         handler.run(args.lhost, args.lport, args.debug)
 
