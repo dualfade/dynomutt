@@ -30,7 +30,9 @@ dependencies = [
   "gevent",
   "gevent-websocket",
   "bottle>=0.12.25",
-  "coloredlogs"
+  "coloredlogs",
+  "psutil",
+  "aiosignal>=1.3.1"
 ]
 
 [project.urls]
