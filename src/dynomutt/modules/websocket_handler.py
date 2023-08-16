@@ -88,12 +88,16 @@ class WebsocketSendPayload(object):
                         m = re.search(self.match_string, resp)
                         if m is not None:
                             print(f"<<< {resp}")
-                            match_response(m, self.match_string)
+                            match_response(m, self.match_string, self.payload)
 
-                            # FIX: needs signal; terminate update --
-                            time.sleep(5)
-                            await websocket.close()
-                            sys.exit(-1)
+                            # HACK: https://github.com/bottlepy/bottle/issues/1229 --
+                            if self.terminate:
+                                logging_handler.warn("=> Termination Flag Detected !")
+                                logging_handler.warn("=> Exiting !")
+                                current_process = psutil.Process()
+                                current_process.send_signal(signal.SIGTERM)
+                            else:
+                                pass
 
                     else:
                         print(f"<<< {resp}")
