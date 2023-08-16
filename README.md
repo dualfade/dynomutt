@@ -48,6 +48,7 @@ options:
   -t TIMEOUT, --timeout TIMEOUT
                         WebSocket Timeout in seconds
   --ms MATCH_STRING     Match Response String
+  --te                  Terminate on Match
   -e, --examples        Examples Menu
 ```
 
