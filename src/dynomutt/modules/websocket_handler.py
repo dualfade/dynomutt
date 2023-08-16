@@ -122,10 +122,12 @@ class WebsocketSendPayload(object):
                         m = re.search(self.match_string, resp)
                         if m is not None:
                             print(f"<<< {resp}")
-                            match_response(m, self.match_string)
+                            match_response(m, self.match_string, self.payload)
 
                             # HACK: https://github.com/bottlepy/bottle/issues/1229 --
                             if self.terminate:
+                                logging_handler.warn("=> Termination Flag Detected !")
+                                logging_handler.warn("=> Exiting !")
                                 current_process = psutil.Process()
                                 current_process.send_signal(signal.SIGTERM)
                             else:
@@ -144,7 +146,8 @@ def match_response(*args, **kwargs):
 
     m = args[0]
     match_string = args[1]
+    payload = args[2]
 
-    logging_handler.warn(f"=> Match String: {match_string} !")
-    logging_handler.warn(f"=> Match Detected: {m} !")
-    logging_handler.warn("=> Shutting Down Gracefully !")
+    logging_handler.info(f"=> Match String: {match_string} !")
+    logging_handler.info(f"=> Match Detected: {m} !")
+    logging_handler.info(f"=> Payload: {payload} !")
