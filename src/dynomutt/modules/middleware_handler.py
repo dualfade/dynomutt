@@ -20,7 +20,7 @@ from bottle import Bottle, route, request, response, run
 class MiddlewareServer:
     """MiddlewareServer class"""
 
-    def __init__(self, url, headers, ignore_ssl, timeout, match_string):
+    def __init__(self, url, headers, ignore_ssl, timeout, match_string, terminate):
         self.app = Bottle()
         self.app.install(self.middleware_RequestHandler)
         self.url = url
@@ -28,6 +28,7 @@ class MiddlewareServer:
         self.ignore_ssl = ignore_ssl
         self.timeout = timeout
         self.match_string = match_string
+        self.terminate = terminate
 
     def middleware_RequestHandler(self, callback):
         """Middleware Requests function"""
@@ -56,7 +57,7 @@ class MiddlewareServer:
 
         try:
             ws = websocket_handler.WebsocketSendPayload(
-                self.url, self.headers, self.ignore_ssl, self.timeout, self.match_string, str(path)
+                self.url, self.headers, self.ignore_ssl, self.timeout, self.match_string, self.terminate, str(path)
             )
             return asyncio.run(ws.sendPayload())
 
@@ -75,7 +76,13 @@ class MiddlewareServer:
                 # NOTE: /param?data=<injection>
                 payload = request.query.data  # pyright: ignore
                 ws = websocket_handler.WebsocketSendPayload(
-                    self.url, self.headers, self.ignore_ssl, self.timeout, self.match_string, str(payload)
+                    self.url,
+                    self.headers,
+                    self.ignore_ssl,
+                    self.timeout,
+                    self.match_string,
+                    self.terminate,
+                    str(payload),
                 )
                 return asyncio.run(ws.sendPayload())
 
@@ -93,7 +100,13 @@ class MiddlewareServer:
                     while post_data:
                         payload = re.sub("'", '"', post_data)
                         ws = websocket_handler.WebsocketSendPayload(
-                            self.url, self.headers, self.ignore_ssl, self.timeout, self.match_string, str(payload)
+                            self.url,
+                            self.headers,
+                            self.ignore_ssl,
+                            self.timeout,
+                            self.match_string,
+                            self.terminate,
+                            str(payload),
                         )
                         return asyncio.run(ws.sendPayload())
 
