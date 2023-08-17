@@ -21,6 +21,6 @@ class Writefile(object):
                 f.write("Payload => {}\nResponse => {}\n\n".format(self.payload, self.resp))
                 f.close()
 
-        except Exception as e:
-            logging_handler.warn(f"=> Warning: {e}")
-            logging_handler.warn(f"=> Warning: {e.__class__.__name__}")
+        except IOError as err:
+            logging_handler.warn(f"=> Warning: {err}")
+            logging_handler.warn(f"=> Warning: {err.__class__.__name__}")
