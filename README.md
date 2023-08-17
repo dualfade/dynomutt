@@ -28,8 +28,8 @@ in development:
 ## Usage
 
 ```usage
-hatch run python src/dynomutt/dynomutt.py -h
-usage: dynomutt [-h] [-l LHOST] [-p LPORT] [-u URL] [-H HEADERS] [-d] [-v] [-k] [-t TIMEOUT] [--ms MATCH_STRING] [-e]
+hatch run default:python src/dynomutt/dynomutt.py -h
+usage: dynomutt [-h] [-l LHOST] [-p LPORT] [-u URL] [-H HEADERS] [-d] [-v] [-k] [-t TIMEOUT] [--ms MATCH_STRING] [--te] [-o OUTFILE] [-e]
 
 Asynchronous Websocket Injection Middleware
 
@@ -49,6 +49,8 @@ options:
                         WebSocket Timeout in seconds
   --ms MATCH_STRING     Match Response String
   --te                  Terminate on Match
+  -o OUTFILE, --outfile OUTFILE
+                        Write Output to File
   -e, --examples        Examples Menu
 ```
 
@@ -61,7 +63,8 @@ hatch run default:python src/dynomutt/dynomutt.py -e
 [usage] dynomutt.py -l '127.0.0.1' -p '8082' -u 'ws://dvws.local:8080/reflected-xss'
 [usage] dynomutt.py -l '127.0.0.1' -p '8082' -u 'ws://dvws.local:8080/authenticate-user-blind' -d -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30
 [usage] dynomutt.py -l '127.0.0.1' -p '8002' -u 'wss://dvws.local:8080/file-inclusion' -d -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c, User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -k -t 30
-[usage] dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://dvws.local:8080/command-execution' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30 -v --ms 'TJE\w.*?$'
+[usage] dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://dvws.local:8080/command-execution' -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 30 -v --ms 'TJE\w.*?$' --te
+[usage] dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://dvws.local:8080/file-inclusion' -d -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 5 -v --ms 'ro\w.*?$' -o /tmp/file_inclusion_fuzz.txt
 
 => HTTP Verb CRUD Operations:
 [listener] http://127.0.0.1:8082/<path:path>
