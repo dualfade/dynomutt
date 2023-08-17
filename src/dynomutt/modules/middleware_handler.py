@@ -20,7 +20,7 @@ from bottle import Bottle, route, request, response, run
 class MiddlewareServer:
     """MiddlewareServer class"""
 
-    def __init__(self, url, headers, ignore_ssl, timeout, match_string, terminate):
+    def __init__(self, url, headers, ignore_ssl, timeout, match_string, terminate, outfile):
         self.app = Bottle()
         self.app.install(self.middleware_RequestHandler)
         self.url = url
@@ -29,6 +29,7 @@ class MiddlewareServer:
         self.timeout = timeout
         self.match_string = match_string
         self.terminate = terminate
+        self.outfile = outfile
 
     def middleware_RequestHandler(self, callback):
         """Middleware Requests function"""
@@ -57,7 +58,14 @@ class MiddlewareServer:
 
         try:
             ws = websocket_handler.WebsocketSendPayload(
-                self.url, self.headers, self.ignore_ssl, self.timeout, self.match_string, self.terminate, str(path)
+                self.url,
+                self.headers,
+                self.ignore_ssl,
+                self.timeout,
+                self.match_string,
+                self.terminate,
+                self.outfile,
+                str(path),
             )
             return asyncio.run(ws.sendPayload())
 
@@ -82,6 +90,7 @@ class MiddlewareServer:
                     self.timeout,
                     self.match_string,
                     self.terminate,
+                    self.outfile,
                     str(payload),
                 )
                 return asyncio.run(ws.sendPayload())
@@ -106,6 +115,7 @@ class MiddlewareServer:
                             self.timeout,
                             self.match_string,
                             self.terminate,
+                            self.outfile,
                             str(payload),
                         )
                         return asyncio.run(ws.sendPayload())

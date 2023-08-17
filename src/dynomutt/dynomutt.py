@@ -52,7 +52,7 @@ if __name__ == "__main__":
     parser.add_argument('--te', dest='terminate', action="store_true", help='Terminate on Match')
 
     # parser.add_argument("-r", "--raw", dest="raw", help="Burp Request File")
-    # parser.add_argument("-w", "--write", dest="write", help="Write Responses to File")
+    parser.add_argument("-o", "--outfile", dest="outfile", help="Write Output to File")
     parser.add_argument("-e", "--examples", action="store_true", dest="examples", help="Examples Menu")
 
     try:
@@ -73,8 +73,10 @@ if __name__ == "__main__":
 
         # middleware handler --
         handler = middleware_handler.MiddlewareServer(
-            args.url, args.headers, args.ignore_ssl, args.timeout, args.match_string, args.terminate
+            args.url, args.headers, args.ignore_ssl, args.timeout, args.match_string, args.terminate, args.outfile
         )
+
+        # start server --
         handler.run(args.lhost, args.lport, args.debug)
 
     except KeyboardInterrupt:

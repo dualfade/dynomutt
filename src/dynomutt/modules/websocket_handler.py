@@ -2,22 +2,20 @@
 # websocket_handler.py
 
 import re
-import sys
 import ssl
-import time
 import signal
 import psutil
 import asyncio
 from websockets.client import connect
 
 from . import logging_handler
-from . import middleware_handler
+import helpers.do_writefile as do_writefile
 
 
 class WebsocketSendPayload(object):
     """class WebsocketSendPayload"""
 
-    def __init__(self, url, headers, ignore_ssl, timeout, match_string, terminate, payload):
+    def __init__(self, url, headers, ignore_ssl, timeout, match_string, terminate, outfile, payload):
         """init vars, pass to websocket connect"""
 
         self.url = url
@@ -26,6 +24,7 @@ class WebsocketSendPayload(object):
         self.timeout = timeout
         self.match_string = match_string
         self.terminate = terminate
+        self.outfile = outfile
         self.payload = payload
 
     async def sendPayload(self):
@@ -121,6 +120,15 @@ class WebsocketSendPayload(object):
                     print(f">>> {self.payload}")
 
                     resp = await websocket.recv()
+
+                    if self.outfile:
+                        """write output to file"""
+
+                        w = do_writefile.Writefile(self.outfile, self.payload, resp)
+                        w.writefile()
+
+                    else:
+                        pass
 
                     if self.match_string:
                         m = re.search(self.match_string, resp)
