@@ -125,23 +125,23 @@ class MiddlewareServer:
 
         elif request.method == "PATCH":
             """do_patch functions"""
-            logging_handler.info("=> PATCH placeholder")
+            raise NotImplementedError
 
         elif request.method == "UPDATE":
             """do_options functions"""
-            logging_handler.info("=> update placeholder")
+            raise NotImplementedError
 
         elif request.method == "PUT":
             """do_put functions"""
-            logging_handler.info("=> PUT placeholder")
+            raise NotImplementedError
 
         elif request.method == "DELETE":
             """do_delete functions"""
-            logging_handler.info("=> DELETE placeholder")
+            raise NotImplementedError
 
         elif request.method == "HEAD":
             """do_head functions"""
-            logging_handler.info("=> DELETE placeholder")
+            raise NotImplementedError
         else:
             """something is quite not right; issue warning"""
             logging_handler.warn("=> operation not allowed")
