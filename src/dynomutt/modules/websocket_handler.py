@@ -83,6 +83,17 @@ class WebsocketSendPayload(object):
 
                     resp = await websocket.recv()
 
+                    # FIX: need to check / move this if statement --
+                    # FIX:  same with below; should be called once --
+                    if self.outfile:
+                        """write output to file"""
+
+                        w = do_writefile.Writefile(self.outfile, self.payload, resp)
+                        w.writefile()
+
+                    else:
+                        pass
+
                     if self.match_string:
                         m = re.search(self.match_string, resp)
                         if m is not None:
