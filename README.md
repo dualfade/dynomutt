@@ -96,7 +96,6 @@ dalfox -X GET url 'http://127.0.0.1:8000/param?data=Dalfox' --cookie 'PHPSESSID=
   - Two dedicated injection endpoints, one dynamic and one parameterized.
   - All HTTP verbs supported, main focus is WebSocket CRUD injection.
   - WebSocket Headers and Authorization schemes.
-  - WebSocket Proxy token?= support.
   - All initial testing has been done against OWASP dvws.
   - Additional testing (screenshots): [nodejs-websocket-sqli](https://github.com/rayhan0x01/nodejs-websocket-sqli)
   - More ?
@@ -137,8 +136,6 @@ pencode -input ~/Github/custom_list/wordlists/SecLists/Fuzzing/UnixAttacks.fuzzd
 
 ![image](https://github.com/dualfade/dynomutt/assets/2522757/dab3bf9b-af79-462b-85d1-68769fa3d8a5)
 ![image](https://github.com/dualfade/dynomutt/assets/2522757/4138b4f2-601d-4c6c-9147-2e2482cd8c08)
-
-
 
 ## License
 
