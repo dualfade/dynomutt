@@ -84,7 +84,7 @@ class WebsocketSendPayload(object):
                     resp = await websocket.recv()
 
                     # FIX: need to check / move this if statement --
-                    # FIX:  same with below; should be called once --
+                    # FIX: same with below; needs refactor --
                     if self.outfile:
                         """write output to file"""
 
