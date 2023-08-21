@@ -127,6 +127,19 @@ python sqlmap.py -u 'http://127.0.0.1:8000/param?' --data '{"employeeID":"*"}' -
 ![2023-08-12_21-23_1](https://github.com/dualfade/dynomutt/assets/2522757/1469d46e-6959-4867-a7e8-af35319c1883)
 ![2023-08-12_21-23](https://github.com/dualfade/dynomutt/assets/2522757/0be4b41d-768d-4eb2-a057-1ec3411dcd5c)
 
+```
+Dynomutt Middleware Server --
+hatch run default:python src/dynomutt/dynomutt.py -l '127.0.0.1' -p '8000' -u 'ws://dvws.local:8080/file-inclusion' -d -H 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36' -t 5 -v --ms '\w.*:\w.*?$' --te -o /tmp/file_inclusion_fuzz.txt
+
+ffuf --
+pencode -input ~/Github/custom_list/wordlists/SecLists/Fuzzing/UnixAttacks.fuzzdb.txt urlencode | ffuf -u 'http://127.0.0.1:8000/param?data=pagesFUZZ' -w - -rate 30
+```
+
+![image](https://github.com/dualfade/dynomutt/assets/2522757/dab3bf9b-af79-462b-85d1-68769fa3d8a5)
+![image](https://github.com/dualfade/dynomutt/assets/2522757/4138b4f2-601d-4c6c-9147-2e2482cd8c08)
+
+
+
 ## License
 
 `dynomutt` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
