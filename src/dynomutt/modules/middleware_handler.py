@@ -49,7 +49,7 @@ class MiddlewareServer:
     def index(self):
         """show a default index page"""
 
-        #:NOTE: show examples on index page ??
+        # :NOTE: show examples on index page ??
         return "Middleware Server running !"
 
     @route('/<path:path>')
